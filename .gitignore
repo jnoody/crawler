@@ -15,7 +15,6 @@ build
 .DS_Store
 *~
 /.idea
-.DS_Store
 *.swp
 *.swo
 *.bak
@@ -24,3 +23,5 @@ build
 .sass-cache
 *.log.*
 *.db
+
+src/www/jsx/
