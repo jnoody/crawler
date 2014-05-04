@@ -24,4 +24,5 @@ build
 *.log.*
 *.db
 
-src/www/jsx/
+src/www/app.built.js
+*.jsx.js

@@ -17,10 +17,10 @@ module.exports = function (grunt) {
                 files: [
                     {
                         expand: true,
-                        cwd: 'src/jsx',
+                        cwd: 'src/www',
                         src: ['**/*.jsx'],
-                        dest: 'src/www/jsx',
-                        ext: '.js'
+                        dest: '**',
+                        ext: '.jsx.js'
                     }
                 ]
             }
@@ -28,7 +28,7 @@ module.exports = function (grunt) {
         exec: {
             clean: {
                 cmd: function () {
-                    return 'rm -irf build/';
+                    return 'rm -irf build/ && rm -irf src/www/jsx/';
                 }
             }
         },
@@ -43,6 +43,8 @@ module.exports = function (grunt) {
                     }
                 ]
             }
+        },
+        browserify: {
         }
     });
 
@@ -50,7 +52,8 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-react');
     grunt.loadNpmTasks('grunt-exec');
     grunt.loadNpmTasks('grunt-contrib-copy');
+    grunt.loadNpmTasks('grunt-browserify');
 
-    grunt.registerTask('build', ['exec:clean', 'react', 'copy']);
+    grunt.registerTask('build', ['exec:clean', 'react', /*'browserify',*/ 'copy']);
     grunt.registerTask('default', ['build', 'connect']);
 };
