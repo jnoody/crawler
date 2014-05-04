@@ -7,7 +7,7 @@ module.exports = function (grunt) {
         connect: {
             server: {
                 options: {
-                    base: 'src',
+                    base: 'build',
                     keepalive: true
                 }
             }
