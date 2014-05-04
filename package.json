@@ -1,0 +1,17 @@
+{
+  "name": "teatree",
+  "version": "3.0.0",
+  "description": "teatree ==========",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.webapps.rr.com:jkaminetsky/teatree.git"
+  },
+  "author": "Joshua Kaminetsky",
+  "devDependencies": {
+    "grunt": "~0.4.4",
+    "grunt-contrib-connect": "~0.7.1"
+  }
+}
