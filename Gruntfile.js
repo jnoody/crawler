@@ -44,6 +44,13 @@ module.exports = function (grunt) {
             }
         },
         browserify: {
+            options: {
+                transform: [ require('grunt-react').browserify ]
+            },
+            client: {
+                src: ['src/www/**/*.jsx'],
+                dest: 'src/www/app.built.js'
+            }
         }
     });
 
@@ -53,6 +60,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-browserify');
 
-    grunt.registerTask('build', ['exec:clean', 'react', /*'browserify',*/ 'copy']);
+    grunt.registerTask('build', ['exec:clean', /*'react',*/ 'browserify', 'copy']);
     grunt.registerTask('default', ['build', 'connect']);
 };
