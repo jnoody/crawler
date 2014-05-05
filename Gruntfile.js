@@ -9,7 +9,8 @@ module.exports = function (grunt) {
                 options: {
                     //base: 'build',
                     base: 'src/www',
-                    keepalive: true
+                    keepalive: true,
+                    livereload: true
                 }
             }
         },
@@ -57,7 +58,10 @@ module.exports = function (grunt) {
             react: {
                 cwd: 'src/www',
                 files: '**/*.jsx',
-                tasks: ['browserify']
+                tasks: ['browserify'],
+                options: {
+                    livereload: true
+                }
             }
         }
     });
