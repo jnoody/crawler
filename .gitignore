@@ -25,4 +25,3 @@ build
 *.db
 
 src/www/app.built.js
-*.jsx.js
