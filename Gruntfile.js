@@ -57,7 +57,11 @@ module.exports = function (grunt) {
         watch: {
             react: {
                 cwd: 'src/www',
-                files: '**/*.jsx',
+                files: [
+                    '**/*.jsx',
+                    '**/*.html',
+                    '**/*.css'
+                ],
                 tasks: ['browserify'],
                 options: {
                     livereload: true

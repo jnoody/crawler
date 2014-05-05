@@ -8,11 +8,13 @@ module.exports = React.createClass({
             <form onSubmit={ this.handleSubmit }>
                 <legend>Enter the URL you would like to begin crawling</legend>
                 <input
+                    className="url"
                     type="url"
                     placeholder="Enter URL to crawl..."
                     ref="url"
                 />
                 <input
+                    className="submit"
                     type="submit"
                     value="go"
                 />

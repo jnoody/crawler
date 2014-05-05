@@ -6,7 +6,15 @@ module.exports = React.createClass({
     render: function () {
         return (
             <div>
-                { this.props.url ? <iframe src={ this.props.url } /> : null }
+                {
+                    this.props.url ?
+                    <iframe
+                        className="iframe"
+                        src={ this.props.url }
+                        sandbox=""
+                    /> :
+                    null
+                }
             </div>
         );
     }
