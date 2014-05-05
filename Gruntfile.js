@@ -7,7 +7,8 @@ module.exports = function (grunt) {
         connect: {
             server: {
                 options: {
-                    base: 'build',
+                    //base: 'build',
+                    base: 'src/www',
                     keepalive: true
                 }
             }
@@ -51,6 +52,12 @@ module.exports = function (grunt) {
                 src: ['src/www/**/*.jsx'],
                 dest: 'src/www/app.built.js'
             }
+        },
+        watch: {
+            react: {
+                files: '/*.jsx',
+                tasks: ['browserify']
+            }
         }
     });
 
@@ -60,6 +67,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-browserify');
 
-    grunt.registerTask('build', ['exec:clean', /*'react',*/ 'browserify', 'copy']);
+    //grunt.registerTask('build', ['exec:clean', 'browserify', 'copy']);
+    grunt.registerTask('build', ['browserify']);
     grunt.registerTask('default', ['build', 'connect']);
 };
