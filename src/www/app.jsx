@@ -1,6 +1,9 @@
 /** @jsx React.DOM */
 
+var React = require('./react');
+var HelloMessage = require('./HelloMessage.jsx');
+
 React.renderComponent(
-    <h1>Hello, world!</h1>,
+    <HelloMessage />,
     document.getElementById('app')
 );
