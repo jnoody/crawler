@@ -55,7 +55,8 @@ module.exports = function (grunt) {
         },
         watch: {
             react: {
-                files: '/*.jsx',
+                cwd: 'src/www',
+                files: '**/*.jsx',
                 tasks: ['browserify']
             }
         }
@@ -63,9 +64,10 @@ module.exports = function (grunt) {
 
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-react');
-    grunt.loadNpmTasks('grunt-exec');
-    grunt.loadNpmTasks('grunt-contrib-copy');
+    //grunt.loadNpmTasks('grunt-exec');
+    //grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-browserify');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
     //grunt.registerTask('build', ['exec:clean', 'browserify', 'copy']);
     grunt.registerTask('build', ['browserify']);
