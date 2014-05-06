@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 
 var React = require('./react');
-//var Crawler = require('./Crawler.jsx');
+var $ = require('zepto');
 var Navigator = require('./Navigator.jsx');
 var Viewer = require('./Viewer.jsx');
 
@@ -26,7 +26,12 @@ var CrawlerApp = React.createClass({
     },
 
     handleUrlSubmit: function (url) {
-        console.log(url);
+        $.ajax({
+            url: url,
+            success: function (res) {
+                console.log(res);
+            }
+        });
         this.setState({ url: url });
     }
 });

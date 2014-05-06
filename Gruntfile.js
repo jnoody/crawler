@@ -47,7 +47,10 @@ module.exports = function (grunt) {
         },
         browserify: {
             options: {
-                transform: [ require('grunt-react').browserify ]
+                transform: [
+                    require('grunt-react').browserify
+                ],
+                alias: ['src/www/zepto:zepto']
             },
             client: {
                 src: ['src/www/**/*.jsx'],

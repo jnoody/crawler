@@ -18,6 +18,18 @@
     "grunt-contrib-copy": "~0.5.0",
     "browserify": "~3.46.0",
     "grunt-browserify": "~2.0.8",
-    "grunt-contrib-watch": "~0.6.1"
+    "grunt-contrib-watch": "~0.6.1",
+    "browserify-shim": "~3.4.1"
+  },
+  "browser": {
+    "zepto": "src/www/zepto.js"
+  },
+  "browserify-shim": {
+    "zepto": "$"
+  },
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
   }
 }
