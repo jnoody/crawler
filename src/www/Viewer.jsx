@@ -37,7 +37,25 @@ module.exports = React.createClass({
         var $container = $('<div></div>');
 
         $container
-            .append(html)
+            .append(html);
+
+        this.blockJavaScript($container);
+        this.toEscapedFragment($container);;
+
+        return $container.html();
+    },
+
+    toEscapedFragment: function ($container) {
+        $container
+            .find('a[href*=\\#\\!]')
+            .each(function (i, a) {
+                var $a = $(a)
+                $a.attr('href', $a.attr('href').replace('#!', '_escaped_fragment_='))
+            });
+    },
+
+    blockJavaScript: function ($container) {
+        $container
             .find('script')
             .remove();
 
@@ -63,8 +81,6 @@ module.exports = React.createClass({
         $container.find('*[onreset]').removeAttr('onreset');
         $container.find('*[onselect]').removeAttr('onselect');
         $container.find('*[onsubmit]').removeAttr('onsubmit');
-
-        return $container.html();
     }
 });
 
