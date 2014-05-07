@@ -22,10 +22,10 @@
     "browserify-shim": "~3.4.1"
   },
   "browser": {
-    "zepto": "src/www/zepto.js"
+    "jquery": "src/www/jquery.js"
   },
   "browserify-shim": {
-    "zepto": "$"
+    "jquery": "$"
   },
   "browserify": {
     "transform": [

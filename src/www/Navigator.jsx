@@ -12,6 +12,7 @@ module.exports = React.createClass({
                     type="url"
                     placeholder="Enter URL to crawl..."
                     ref="url"
+                    defaultValue={ this.props.url }
                 />
                 <input
                     className="submit"

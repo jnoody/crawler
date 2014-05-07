@@ -1,14 +1,14 @@
 /** @jsx React.DOM */
 
 var React = require('./react');
-var $ = require('zepto');
+var $ = require('jquery');
 var Navigator = require('./Navigator.jsx');
 var Viewer = require('./Viewer.jsx');
 
 var CrawlerApp = React.createClass({
     getInitialState: function () {
         return {
-            url: ''
+            url: 'http://127.0.0.1'
         };
     },
 

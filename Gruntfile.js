@@ -50,7 +50,10 @@ module.exports = function (grunt) {
                 transform: [
                     require('grunt-react').browserify
                 ],
-                alias: ['src/www/zepto:zepto']
+                alias: [
+                    'src/www/zepto:zepto',
+                    'src/www/jquery:jquery'
+                ]
             },
             client: {
                 src: ['src/www/**/*.jsx'],
