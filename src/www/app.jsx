@@ -8,7 +8,13 @@ var Viewer = require('./Viewer.jsx');
 var CrawlerApp = React.createClass({
     getInitialState: function () {
         return {
-            url: 'http://127.0.0.1'
+            url: 'http://localhost'
+        };
+    },
+
+    getDefaultProps: function () {
+        return {
+            html: '<!doctype html><html><body><div>loading page...</div></body></html>'
         };
     },
 
@@ -20,19 +26,48 @@ var CrawlerApp = React.createClass({
                     url={ this.state.url }
                     onUrlSubmit={ this.handleUrlSubmit }
                 />
-                <Viewer url={ this.state.url } />
+                <Viewer html={ this.props.html } />
             </div>
         );
     },
 
+    componentDidMount: function () {
+        this.updateHtml(this.state.url);
+    },
+
+    shouldComponentUpdate: function (nextProps, nextState) {
+        if (nextProps.html !== this.props.html) {
+            return true;
+        }
+
+        if (nextState.url !== this.state.url) {
+            this.updateHtml(nextState.url);
+        }
+
+        return false;
+    },
+
     handleUrlSubmit: function (url) {
+        this.setState({
+            url: url
+        });
+    },
+
+    htmlDidUpdate: function (res) {
+        this.setProps({
+            html: res
+        });
+    },
+
+    htmlDidFail: function () {
+    },
+
+    updateHtml: function (url) {
         $.ajax({
             url: url,
-            success: function (res) {
-                console.log(res);
-            }
+            success: this.htmlDidUpdate,
+            error: this.htmlDidFail
         });
-        this.setState({ url: url });
     }
 });
 
