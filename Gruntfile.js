@@ -10,7 +10,8 @@ module.exports = function (grunt) {
                     //base: 'build',
                     base: 'src/www',
                     keepalive: true,
-                    livereload: true
+                    livereload: true,
+                    port: 8001
                 }
             }
         },
