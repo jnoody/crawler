@@ -6,54 +6,10 @@ var Navigator = require('./Navigator.jsx');
 var Viewer = require('./Viewer.jsx');
 var stringUtil = require('./stringUtil');
 
-var urlPartsRegex = /(http[s]?:\/\/)([^:\/?#]*)([^\/?#]*)([^?#]*)([^#]*)/g;
-
-function escapeFragment(url) {
-    /*
-     * convert any hash params to escaped fragments as google would do
-     *
-     * RexEx positions:
-     * 0: empty
-     * 1: protocol including ://
-     * 2: host
-     * 3: port including :
-     * 4: path
-     * 5: query
-     * 6: hash
-     */
-    var urlParts = url.split(urlPartsRegex);
-
-    var hash = urlParts[6];
-
-    if (hash.indexOf('#!') === 0) {
-        hash = hash.substring(2);
-
-        var hasQuery = urlParts[5].length;
-
-        if (hasQuery) {
-            urlParts[5] += '&';
-        } else {
-            urlParts[5] = '?';
-        }
-
-        urlParts[5] += '_escaped_fragment_=' + stringUtil.encodeUriComponent(hash);
-
-        url =
-            urlParts[0] +
-            urlParts[1] +
-            urlParts[2] +
-            urlParts[3] +
-            urlParts[4] +
-            urlParts[5];
-    }
-
-    return url;
-}
-
 var CrawlerApp = React.createClass({
     getInitialState: function () {
         return {
-            url: 'http://localhost:8000?foo=bar#!foo=baz'
+            url: 'http://localhost:8000?foo=bar'
         };
     },
 
@@ -71,7 +27,10 @@ var CrawlerApp = React.createClass({
                     url={ this.state.url }
                     onUrlSubmit={ this.handleUrlSubmit }
                 />
-                <Viewer html={ this.props.html } />
+                <Viewer
+                    url={ this.state.url }
+                    html={ this.props.html }
+                />
             </div>
         );
     },
@@ -109,7 +68,7 @@ var CrawlerApp = React.createClass({
 
     updateHtml: function (url) {
         $.ajax({
-            url: escapeFragment(url),
+            url: stringUtil.escapeFragment(url),
             success: this.htmlDidUpdate,
             error: this.htmlDidFail
         });

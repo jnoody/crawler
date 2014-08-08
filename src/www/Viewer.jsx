@@ -2,6 +2,10 @@
 
 var React = require('./react');
 var $ = require('jquery');
+var _ = require('./lodash');
+var stringUtil = require('./stringUtil');
+
+var escapedFragmentKey = '_escaped_fragment_';
 
 module.exports = React.createClass({
     render: function () {
@@ -26,14 +30,26 @@ module.exports = React.createClass({
     },
 
     updateHtml: function (html) {
-        html = this.sanitizeHtml(html);
+        var $container = this.getContainer(html);
 
-        $(this.getDOMNode()).contents().find('body')
-            .empty()
-            .append(html);
+        // do we have a meta fragment
+        var hasMetaFragment = $container.find('meta[name="fragment"][content="!"]').length;
+
+        // are we already browsing to an escaped fragment
+        var urlParts = stringUtil.splitUrl(this.props.url);
+        var queryMap = stringUtil.toQueryMap(urlParts[5]);
+        var hasEscapedFragment = _.findWhere(queryMap, { key: escapedFragmentKey });
+
+        if (hasMetaFragment && !hasEscapedFragment) {
+            
+        } else {
+            $(this.getDOMNode()).contents().find('body')
+                .empty()
+                .append($container.html());
+        }
     },
 
-    sanitizeHtml: function (html) {
+    getContainer: function (html) {
         var $container = $('<div></div>');
 
         $container
@@ -42,7 +58,7 @@ module.exports = React.createClass({
         this.blockJavaScript($container);
         this.toEscapedFragment($container);;
 
-        return $container.html();
+        return $container;
     },
 
     toEscapedFragment: function ($container) {
@@ -50,7 +66,7 @@ module.exports = React.createClass({
             .find('a[href*=\\#\\!]')
             .each(function (i, a) {
                 var $a = $(a)
-                $a.attr('href', $a.attr('href').replace('#!', '_escaped_fragment_='))
+                $a.attr('href', $a.attr('href').replace('#!', escapedFragmentKey))
             });
     },
 
