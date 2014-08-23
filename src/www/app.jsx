@@ -12,7 +12,7 @@ var escapedFragmentKey = '_escaped_fragment_';
 var CrawlerApp = React.createClass({
     getInitialState: function () {
         return {
-            url: 'http://localhost:8000?foo=bar#!baz=qux',
+            url: 'http://localhost:8000?foo=bar',
             dom: $('<div>loading...</div>')
         };
     },
