@@ -20,7 +20,7 @@ var stringUtil = {
 
         var hash = urlParts[6];
 
-        if (hash.indexOf('#!') === 0) {
+        if (hash && hash.indexOf('#!') === 0) {
             hash = hash.substring(2);
 
             var hasQuery = urlParts[5].length;
