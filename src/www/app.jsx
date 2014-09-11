@@ -160,7 +160,7 @@ var CrawlerApp = React.createClass({
             .find('a[href*=\\#\\!]')
             .each(function (i, a) {
                 var $a = $(a)
-                $a.attr('href', $a.attr('href').replace('#!', escapedFragmentKey))
+                $a.attr('href', $a.attr('href').replace('#!', '?' + escapedFragmentKey + '='))
             });
     }
 });
