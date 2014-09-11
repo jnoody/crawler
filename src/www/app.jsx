@@ -7,12 +7,13 @@ var Navigator = require('./Navigator.jsx');
 var Viewer = require('./Viewer.jsx');
 var stringUtil = require('./stringUtil');
 
-var escapedFragmentKey = '_escaped_fragment_';
+var fragmentKey = '_escaped_fragment_';
+var hashbangRegex = /#!([^#!]*)$/;
 
 var CrawlerApp = React.createClass({
     getInitialState: function () {
         return {
-            url: 'http://localhost:8000?foo=bar#!categoryUrl=something',
+            url: 'http://localhost:8000',
             dom: $('<div>loading...</div>')
         };
     },
@@ -85,7 +86,7 @@ var CrawlerApp = React.createClass({
         // are we already browsing to an escaped fragment
         var urlParts = stringUtil.splitUrl(this.state.url);
         var queryMap = stringUtil.toQueryMap(urlParts[5]);
-        var hasEscapedFragment = _.findWhere(queryMap, { key: escapedFragmentKey });
+        var hasEscapedFragment = _.findWhere(queryMap, { key: fragmentKey });
 
         if (hasMetaFragment && !hasEscapedFragment) {
             queryMap.push({
@@ -160,7 +161,17 @@ var CrawlerApp = React.createClass({
             .find('a[href*=\\#\\!]')
             .each(function (i, a) {
                 var $a = $(a)
-                $a.attr('href', $a.attr('href').replace('#!', '?' + escapedFragmentKey + '='))
+                var url = $a.attr('href');
+
+                hashbangCapture = hashbangRegex.exec(url);
+
+                if (hashbangCapture && hashbangCapture.length > 1) {
+                    var hashbang = hashbangCapture[1];
+                    url = url.replace(hashbang, encodeURIComponent(hashbang));
+                }
+                url = url.replace('#!', '?' + fragmentKey + '=');
+
+                $a.attr('href', url);
             });
     }
 });
